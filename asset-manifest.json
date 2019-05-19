@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/pokemons/static/css/main.2cce8147.chunk.css",
+    "main.js": "/pokemons/static/js/main.2c2abcf1.chunk.js",
+    "main.js.map": "/pokemons/static/js/main.2c2abcf1.chunk.js.map",
+    "runtime~main.js": "/pokemons/static/js/runtime~main.a49f20d3.js",
+    "runtime~main.js.map": "/pokemons/static/js/runtime~main.a49f20d3.js.map",
+    "static/js/2.b41502e9.chunk.js": "/pokemons/static/js/2.b41502e9.chunk.js",
+    "static/js/2.b41502e9.chunk.js.map": "/pokemons/static/js/2.b41502e9.chunk.js.map",
+    "index.html": "/pokemons/index.html",
+    "precache-manifest.292685666511826f7da4d9e509848559.js": "/pokemons/precache-manifest.292685666511826f7da4d9e509848559.js",
+    "service-worker.js": "/pokemons/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/pokemons/static/css/main.2cce8147.chunk.css.map",
+    "static/media/logo.svg": "/pokemons/static/media/logo.5d5d9eef.svg"
+  }
+}
