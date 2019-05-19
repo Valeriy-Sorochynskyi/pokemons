@@ -40,7 +40,7 @@ class PokeDashboard extends Component {
           return {
             ...prevState,
             pokemons: [...prevState.pokemons, ...pokemons],
-            isLoadMoreActive: true,
+            isLoadMoreActive: true
           };
         });
       });
@@ -51,6 +51,10 @@ class PokeDashboard extends Component {
       selectedCard: true,
       detailes: detailes
     });
+  };
+
+  capitalize = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   render() {
@@ -74,6 +78,7 @@ class PokeDashboard extends Component {
                     totalMoves={pokemon.totalMoves}
                     stats={pokemon.stats}
                     openDetailes={this.handleOpenDetailes}
+                    capitalize={this.capitalize}
                   />
                 );
               })}
@@ -87,11 +92,13 @@ class PokeDashboard extends Component {
                 >
                   Load More
                 </button>
-              ) : 'Loading...'}
+              ) : (
+                "Loading..."
+              )}
             </div>
           </div>
           <div className="col-6 col-lg-4">
-            {selectedCard && <PokeDetailes detailes={this.state.detailes} />}
+            {selectedCard && <PokeDetailes capitalize={this.capitalize} detailes={this.state.detailes} />}
           </div>
         </div>
       </>

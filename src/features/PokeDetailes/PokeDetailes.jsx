@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 class PokeDetailes extends Component {
   render() {
-    const { detailes } = this.props;
+    const { detailes, capitalize } = this.props;
+    const name = capitalize(detailes.name);
     return (
       <div className="row justify-content-center sticky-top">
         <div className="col-10">
@@ -13,29 +14,29 @@ class PokeDetailes extends Component {
               alt={detailes.name}
             />
             <div className="row justify-content-center">
-              <h5 className="card-title">{detailes.name}</h5>
+              <h5 className="card-title">{name}</h5>
             </div>
             <div>
               <table className="table table-sm">
                 <tbody>
                   <tr>
-                    <td>type</td>
+                    <td>Type</td>
                     <td>{detailes.types.join(" ")}</td>
                   </tr>
                   {detailes.stats.map(item => {
                     return (
                       <tr key={item.statName}>
-                        <td>{item.statName}</td>
+                        <td>{capitalize(item.statName)}</td>
                         <td>{item.stat}</td>
                       </tr>
                     );
                   })}
                   <tr>
-                    <td>weight</td>
+                    <td>Weight</td>
                     <td>{detailes.weight}</td>
                   </tr>
                   <tr>
-                    <td>total moves</td>
+                    <td>Total moves</td>
                     <td>{detailes.totalMoves}</td>
                   </tr>
                 </tbody>
