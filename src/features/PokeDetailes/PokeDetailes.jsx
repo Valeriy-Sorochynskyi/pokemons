@@ -4,7 +4,7 @@ class PokeDetailes extends Component {
   render() {
     const { detailes } = this.props;
     return (
-      <div className="row justify-content-center  sticky-top">
+      <div className="row justify-content-center sticky-top">
         <div className="col-10">
           <div className="card card-with-detailes">
             <img
