@@ -26,7 +26,7 @@ class PokeCard extends Component {
             </div>
             <div className="row justify-content-center">
               {pokemon.types.map(type => (
-                <span key={type} className="badge">
+                <span key={type} className="badge badge-secondary">
                   {type}
                 </span>
               ))}

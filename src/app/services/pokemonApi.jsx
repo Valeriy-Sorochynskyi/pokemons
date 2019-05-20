@@ -1,13 +1,13 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon?limit=12";
+const ALL_TYPES_URL = "https://pokeapi.co/api/v2/type/?limit=999";
+const TYPE_URL = "https://pokeapi.co/api/v2/type";
 
 const pockemonApi = {
   getAll() {
     return fetch(BASE_URL)
       .then(response => response.json())
       .then(data => {
-        return Promise.all(
-          data.results.map(result => this.getOne(result.url))
-        );
+        return Promise.all(data.results.map(result => this.getOne(result.url)));
       });
   },
 
@@ -28,6 +28,20 @@ const pockemonApi = {
           totalMoves: data.moves.length
         };
       });
+  },
+
+  getAllTypes() {
+    return fetch(ALL_TYPES_URL)
+      .then(response => response.json())
+      .then(data => data.results.map(result => result.name));
+  },
+
+  getPokemonsByType(type) {
+    return fetch(`${TYPE_URL}/${type}?limit=25`)
+      .then(response => response.json())
+      .then(data => {
+        return Promise.all(data.pokemon.map(result => this.getOne(result.pokemon.url)))
+      })
   }
 };
 

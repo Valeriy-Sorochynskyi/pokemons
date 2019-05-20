@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import PokeCard from "../PokeCard/PokeCard";
 import PokeDetailes from "../PokeDetailes/PokeDetailes";
+import TypeSelection from "../TypeSelection/TypeSelection";
 import pockemonApi from "../../app/services/pokemonApi";
 
 class PokeDashboard extends Component {
   state = {
+    allTypes: [],
     pokemons: [],
     loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
     selectedCard: false,
@@ -13,11 +15,16 @@ class PokeDashboard extends Component {
   };
 
   componentDidMount() {
-    pockemonApi.getAll().then(pokemons => {
-      this.setState({
-        pokemons
-      });
-    });
+    Promise.all([
+      pockemonApi
+        .getAllTypes()
+        .then(types => this.setState({ allTypes: types })),
+      pockemonApi.getAll().then(pokemons => {
+        this.setState({
+          pokemons
+        });
+      })
+    ]);
   }
 
   handleLoadMore = () => {
@@ -57,20 +64,49 @@ class PokeDashboard extends Component {
     });
   };
 
+  handleChange = () => event => {
+    const type = event.target.value;
+    if (type === "All") {
+      pockemonApi.getAll().then(pokemons => {
+        this.setState({
+          pokemons,
+          isLoadMoreActive: true,
+          selectedCard: false,
+          loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
+        });
+      });
+    } else {
+      pockemonApi
+        .getPokemonsByType(type)
+        .then(pokemons => {
+          console.log(pokemons.length)
+          this.setState({ 
+            pokemons,
+            isLoadMoreActive: false,
+            selectedCard: false,
+            loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
+          })
+        });
+    }
+  };
+
   render() {
-    const { pokemons, selectedCard, isLoadMoreActive } = this.state;
+    const { pokemons, selectedCard, isLoadMoreActive, allTypes } = this.state;
     return (
       <>
         <div className="row justify-content-center">
-          <h1>Pokedex</h1>
+          <h1 className="mt-4 mb-4">Pokedex</h1>
+        </div>
+        <div className="row justify-content-start">
+          <TypeSelection types={allTypes} changeType={this.handleChange} />
         </div>
         <div className="row row justify-content-center">
           <div className="col-6 col-lg-6">
             <div className="row justify-content-center">
-              {pokemons.map(pokemon => {
+              {pokemons.map((pokemon, i) => {
                 return (
                   <PokeCard
-                    key={pokemon.name}
+                    key={i}
                     pokemon={pokemon}
                     openDetailes={this.handleOpenDetailes}
                   />
@@ -87,7 +123,7 @@ class PokeDashboard extends Component {
                   Load More
                 </button>
               ) : (
-                "Loading..."
+                "=========="
               )}
             </div>
           </div>
