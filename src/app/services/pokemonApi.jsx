@@ -6,9 +6,7 @@ const pockemonApi = {
       .then(response => response.json())
       .then(data => {
         return Promise.all(
-          data.results.map(result => {
-            return this.getOne(result.url);
-          })
+          data.results.map(result => this.getOne(result.url))
         );
       });
   },

@@ -8,7 +8,7 @@ class PokeDashboard extends Component {
     pokemons: [],
     loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
     selectedCard: false,
-    detailes: {},
+    details: {},
     isLoadMoreActive: true
   };
 
@@ -30,15 +30,12 @@ class PokeDashboard extends Component {
           loadMoreUrl: data.next
         });
         return Promise.all(
-          data.results.map(result => {
-            return pockemonApi.getOne(result.url);
-          })
+          data.results.map(result => pockemonApi.getOne(result.url))
         );
       })
       .then(pokemons => {
         this.setState(prevState => {
           return {
-            ...prevState,
             pokemons: [...prevState.pokemons, ...pokemons],
             isLoadMoreActive: true
           };
@@ -46,15 +43,18 @@ class PokeDashboard extends Component {
       });
   };
 
-  handleOpenDetailes = detailes => () => {
+  handleOpenDetailes = pokemon => () => {
     this.setState({
       selectedCard: true,
-      detailes: detailes
+      details: {
+        imgUrl: pokemon.imgUrl,
+        name: pokemon.name,
+        stats: pokemon.stats,
+        weight: pokemon.weight,
+        types: pokemon.types,
+        totalMoves: pokemon.totalMoves
+      }
     });
-  };
-
-  capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   render() {
@@ -71,14 +71,8 @@ class PokeDashboard extends Component {
                 return (
                   <PokeCard
                     key={pokemon.name}
-                    name={pokemon.name}
-                    types={pokemon.types}
-                    imgUrl={pokemon.imgUrl}
-                    weight={pokemon.weight}
-                    totalMoves={pokemon.totalMoves}
-                    stats={pokemon.stats}
+                    pokemon={pokemon}
                     openDetailes={this.handleOpenDetailes}
-                    capitalize={this.capitalize}
                   />
                 );
               })}
@@ -98,7 +92,7 @@ class PokeDashboard extends Component {
             </div>
           </div>
           <div className="col-6 col-lg-4">
-            {selectedCard && <PokeDetailes capitalize={this.capitalize} detailes={this.state.detailes} />}
+            {selectedCard && <PokeDetailes details={this.state.details} />}
           </div>
         </div>
       </>

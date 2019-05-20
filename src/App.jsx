@@ -1,16 +1,12 @@
-import React from 'react';
-import PokeDashboard from './features/PokeDashboard/PokeDashboard';
-
-
+import React from "react";
+import PokeDashboard from "./features/PokeDashboard/PokeDashboard";
 
 function App() {
   return (
-    <div>
-      <div className="container">
-        <PokeDashboard />
-      </div>
+    <div className="container">
+      <PokeDashboard />
     </div>
-  )
+  );
 }
 
 export default App;
