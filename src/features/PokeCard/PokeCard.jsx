@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import capitalize from '../../app/services/capitalize';
+import capitalize from "../../app/services/capitalize";
+import getColorOfBadge from "../../app/services/getColorOfBadge";
+
+
 
 class PokeCard extends Component {
   render() {
@@ -26,7 +29,7 @@ class PokeCard extends Component {
             </div>
             <div className="row justify-content-center">
               {pokemon.types.map(type => (
-                <span key={type} className="badge badge-secondary">
+                <span key={type} className={`badge ${getColorOfBadge(type)}`}>
                   {type}
                 </span>
               ))}
