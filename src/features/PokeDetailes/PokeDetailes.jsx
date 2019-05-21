@@ -5,9 +5,8 @@ const PokeDetailes = props => {
   const { details } = props;
   const name = capitalize(details.name);
   return (
-    <div className="row justify-content-center sticky-top">
-      <div className="col-10">
-        <div className="card card-color">
+
+        <div className="card card-color sticky-top">
           <img
             src={details.imgUrl}
             className="card-img-top"
@@ -43,8 +42,7 @@ const PokeDetailes = props => {
             </table>
           </div>
         </div>
-      </div>
-    </div>
+
   );
 };
 

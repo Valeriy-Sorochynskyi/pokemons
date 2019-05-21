@@ -11,7 +11,8 @@ class PokeDashboard extends Component {
     loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
     selectedCard: false,
     details: {},
-    isLoadMoreActive: true
+    isLoadMoreActive: true,
+    selectedType: null
   };
 
   componentDidMount() {
@@ -70,39 +71,36 @@ class PokeDashboard extends Component {
       pockemonApi.getAll().then(pokemons => {
         this.setState({
           pokemons,
+          selectedType: type,
           isLoadMoreActive: true,
           selectedCard: false,
-          loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
+          loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12"
         });
       });
     } else {
-      pockemonApi
-        .getPokemonsByType(type)
-        .then(pokemons => {
-          console.log(pokemons.length)
-          this.setState({ 
-            pokemons,
-            isLoadMoreActive: false,
-            selectedCard: false,
-            loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12",
-          })
+      pockemonApi.getPokemonsByType(type).then(pokemons => {
+        console.log(pokemons.length);
+        this.setState({
+          pokemons,
+          isLoadMoreActive: false,
+          selectedCard: false,
+          loadMoreUrl: "https://pokeapi.co/api/v2/pokemon?offset=12&limit=12"
         });
+      });
     }
   };
 
   render() {
-    const { pokemons, selectedCard, isLoadMoreActive, allTypes } = this.state;
+    const { selectedType,pokemons, selectedCard, isLoadMoreActive, allTypes } = this.state;
     return (
       <>
-        <div className="row justify-content-center">
-          <h1 className="mt-4 mb-4">Pokedex</h1>
-        </div>
-        <div className="row justify-content-start">
+        <h1 className="mt-4 mb-4 text-center">Pokedex</h1>
+        <div className="row ">
           <TypeSelection types={allTypes} changeType={this.handleChange} />
         </div>
-        <div className="row row justify-content-center">
-          <div className="col-6 col-lg-6">
-            <div className="row justify-content-center">
+        <div className="row ">
+          <div className="col-8 col-lg-8">
+            <div className="row">
               {pokemons.map((pokemon, i) => {
                 return (
                   <PokeCard
@@ -113,21 +111,25 @@ class PokeDashboard extends Component {
                 );
               })}
             </div>
-            <div className="row justify-content-center">
-              {isLoadMoreActive ? (
-                <button
-                  onClick={this.handleLoadMore}
-                  type="button"
-                  className="btn btn-primary col-8"
-                >
-                  Load More
-                </button>
-              ) : (
-                "=========="
-              )}
-            </div>
+            {selectedType === null ? (
+              <div className="row justify-content-center">
+                {isLoadMoreActive ? (
+                  <button
+                    onClick={this.handleLoadMore}
+                    type="button"
+                    className="btn btn-primary pl-5 pr-5"
+                  >
+                    Load More
+                  </button>
+                ) : (
+                  "Loading..."
+                )}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-          <div className="col-6 col-lg-4">
+          <div className="col-4 col-lg-4">
             {selectedCard && <PokeDetailes details={this.state.details} />}
           </div>
         </div>

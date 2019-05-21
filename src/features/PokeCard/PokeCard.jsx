@@ -29,7 +29,7 @@ class PokeCard extends Component {
             </div>
             <div className="row justify-content-center">
               {pokemon.types.map(type => (
-                <span key={type} className={`badge ${getColorOfBadge(type)}`}>
+                <span key={type} className={`badge ${getColorOfBadge(type)} mr-1`}>
                   {type}
                 </span>
               ))}
