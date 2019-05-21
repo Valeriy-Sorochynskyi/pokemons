@@ -111,7 +111,7 @@ class PokeDashboard extends Component {
                 );
               })}
             </div>
-            {selectedType === null ? (
+            {selectedType === null || selectedType === "All" ? (
               <div className="row justify-content-center">
                 {isLoadMoreActive ? (
                   <button
