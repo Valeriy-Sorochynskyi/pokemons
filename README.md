@@ -2,6 +2,9 @@
 # -[Pull request](https://github.com/Valeriy-Sorochynskyi/pokemons/pull/1/files)
 
 # pokemons
+- [Prewiev](https://valeriy-sorochynskyi.github.io/pokemons/)
+- [Pull request](https://github.com/Valeriy-Sorochynskyi/pokemons/pull/1/files)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
